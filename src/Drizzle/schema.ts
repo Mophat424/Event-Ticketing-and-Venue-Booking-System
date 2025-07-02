@@ -1,5 +1,6 @@
 import { pgTable, serial, varchar, timestamp, integer, pgEnum, text, decimal, uniqueIndex, primaryKey } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
+
 // ENUMs
 export const roleEnum = pgEnum("role", ["user", "admin"]);
 export const bookingStatusEnum = pgEnum("booking_status", ["Pending", "Confirmed", "Cancelled"]);
