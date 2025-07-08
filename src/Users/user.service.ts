@@ -1,24 +1,3 @@
-// import  db  from "../Drizzle/db";
-// import { users } from "../Drizzle/schema";
-// import { eq } from "drizzle-orm";
-
-// export const getAllUsers = () => db.select().from(users);
-
-// export const getUserById = (id: number) =>
-//   db.select().from(users).where(eq(users.user_id, id)).then(([u]) => u);
-
-// export const createUser = (data: typeof users.$inferInsert) =>
-//   db.insert(users).values(data).returning().then(([u]) => u);
-
-// export const updateUser = (id: number, data: Partial<typeof users.$inferInsert>) =>
-//   db.update(users).set(data).where(eq(users.user_id, id)).returning().then(([u]) => u);
-
-// export const deleteUser = (id: number) =>
-//   db.delete(users).where(eq(users.user_id, id));
-
-
-
-//AUTH
 import db from "../Drizzle/db";
 import { users } from "../Drizzle/schema";
 import { eq } from "drizzle-orm";

@@ -3,6 +3,7 @@
     "target": "ES2022",
     "module": "NodeNext",
     "rootDir": "./src",
+    
     // "moduleResolution": "node10",
     "moduleResolution": "nodenext",
     "outDir": "./dist",
@@ -10,7 +11,8 @@
     "forceConsistentCasingInFileNames": true, 
     /* Type Checking */
     "strict": true,
-    "skipLibCheck": true 
+    "skipLibCheck": true,
+    "types": ["jest"]
   },
   "include": [
     "src/**/*"   

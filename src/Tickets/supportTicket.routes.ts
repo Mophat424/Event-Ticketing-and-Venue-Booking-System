@@ -1,25 +1,3 @@
-// import express from "express";
-// import {
-//   getAllTickets,
-//   getTicketById,
-//   createTicket,
-//   updateTicket,
-//   deleteTicket,
-// } from "./supportTicket.controller";
-
-// const router = express.Router();
-
-// router.get("/", getAllTickets);
-// router.get("/:id", getTicketById);
-// router.post("/", createTicket);
-// router.put("/:id", updateTicket);
-// router.delete("/:id", deleteTicket);
-
-// export default router;
-
-
-
-//AUTH
 import express from "express";
 import {
   createTicket,

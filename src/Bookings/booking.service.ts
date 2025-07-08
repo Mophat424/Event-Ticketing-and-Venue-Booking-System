@@ -1,36 +1,3 @@
-// import db from "../Drizzle/db";
-// import { bookings } from "../Drizzle/schema";
-// import { eq } from "drizzle-orm";
-
-// // Get all bookings
-// export const getAllBookings = () => {
-//   return db.select().from(bookings);
-// };
-
-// // Get a booking by ID
-// export const getBookingById = (id: number) => {
-//   return db.select().from(bookings).where(eq(bookings.booking_id, id)).then(([b]) => b);
-// };
-
-// // Create a new booking
-// export const createBooking = (data: typeof bookings.$inferInsert) => {
-//   return db.insert(bookings).values(data).returning().then(([b]) => b);
-// };
-
-// // Update a booking
-// export const updateBooking = (id: number, data: Partial<typeof bookings.$inferInsert>) => {
-//   return db.update(bookings).set(data).where(eq(bookings.booking_id, id)).returning().then(([b]) => b);
-// };
-
-// // Delete a booking
-// export const deleteBooking = (id: number) => {
-//   return db.delete(bookings).where(eq(bookings.booking_id, id)).returning().then(([b]) => b);
-// };
-
-
-
-
-//Auth
 import db from "../Drizzle/db";
 import { bookings } from "../Drizzle/schema";
 import { eq } from "drizzle-orm";

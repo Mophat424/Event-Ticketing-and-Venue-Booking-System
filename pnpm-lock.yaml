@@ -32,6 +32,9 @@ importers:
       pg:
         specifier: ^8.16.3
         version: 8.16.3
+      typescript13:
+        specifier: 'link:'
+        version: 'link:'
     devDependencies:
       '@types/jest':
         specifier: ^30.0.0

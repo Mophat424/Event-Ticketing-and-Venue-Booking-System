@@ -1,8 +1,3 @@
-// 
-
-
-
-//AUTH
 import db from "../Drizzle/db";
 import { venues } from "../Drizzle/schema";
 import { eq } from "drizzle-orm";

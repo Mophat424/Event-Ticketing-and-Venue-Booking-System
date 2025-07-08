@@ -1,29 +1,3 @@
-// import db from "../Drizzle/db";
-// import { payments } from "../Drizzle/schema";
-// import { eq } from "drizzle-orm";
-
-// // Get all payments
-// export const getAllPayments = () => db.select().from(payments);
-
-// // Get a single payment by ID
-// export const getPaymentById = (id: number) =>
-//   db.select().from(payments).where(eq(payments.payment_id, id)).then(([p]) => p);
-
-// // Create a payment
-// export const createPayment = (data: typeof payments.$inferInsert) =>
-//   db.insert(payments).values(data).returning().then(([p]) => p);
-
-// // Update a payment
-// export const updatePayment = (id: number, data: Partial<typeof payments.$inferInsert>) =>
-//   db.update(payments).set(data).where(eq(payments.payment_id, id)).returning().then(([p]) => p);
-
-// // Delete a payment
-// export const deletePayment = (id: number) =>
-//   db.delete(payments).where(eq(payments.payment_id, id));
-
-
-
-//Auth
 import db from "../Drizzle/db";
 import { payments, bookings } from "../Drizzle/schema";
 import { eq, and } from "drizzle-orm";
@@ -48,7 +22,11 @@ export const createPayment = async (
 
   if (!booking) throw new Error("Unauthorized or booking not found");
 
-  const [newPayment] = await db.insert(payments).values(data).returning();
+  const [newPayment] = await db.insert(payments).values({
+    ...data,
+    user_id: userId, 
+  }).returning();
+
   return newPayment;
 };
 

@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-dotenv.config(); // ← Move this here first!
+dotenv.config();
 
 import express from "express";
 import userRoutes from "./Users/user.routes";
@@ -13,6 +13,7 @@ import authRoutes from "./Auth/auth.routes";
 const app = express();
 
 app.use(express.json());
+
 app.use("/users", userRoutes);
 app.use("/bookings", bookingRoutes);
 app.use("/events", eventRoutes);
@@ -21,7 +22,11 @@ app.use("/venues", venueRoutes);
 app.use("/tickets", supportTicketRoutes);
 app.use("/auth", authRoutes);
 
-const PORT = 8081;
-app.listen(PORT, () => {
+const PORT = process.env.PORT || 8081;
+
+const server = app.listen(PORT, () => {
   console.log(`🚀 Server is running on http://localhost:${PORT}`);
 });
+
+// 👇 Export both for testability
+export { app, server };

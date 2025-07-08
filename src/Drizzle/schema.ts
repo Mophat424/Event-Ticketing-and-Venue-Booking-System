@@ -59,8 +59,9 @@ export const bookings = pgTable("bookings", {
 
 // Payments Table
 export const payments = pgTable("payments", {
+  user_id: integer("user_id").references(() => users.user_id, { onDelete: "cascade" }), 
   payment_id: serial("payment_id").primaryKey(),
-  booking_id: integer("booking_id").references(() => bookings.booking_id, { onDelete: "cascade" }).unique(),
+  booking_id: integer("booking_id").references(() => bookings.booking_id, { onDelete: "cascade" }).unique(), 
   amount: decimal("amount", { precision: 10, scale: 2 }),
   payment_status: paymentStatusEnum("payment_status").default("Pending"),
   payment_date: timestamp("payment_date").defaultNow(),
@@ -69,6 +70,7 @@ export const payments = pgTable("payments", {
   created_at: timestamp("created_at").defaultNow(),
   updated_at: timestamp("updated_at").defaultNow(),
 });
+
 
 // Support Tickets Table
 export const supportTickets = pgTable("support_tickets", {
@@ -127,7 +129,12 @@ export const paymentRelations = relations(payments, ({ one }) => ({
     fields: [payments.booking_id],
     references: [bookings.booking_id],
   }),
+  user: one(users, {
+    fields: [payments.user_id],
+    references: [users.user_id],
+  }),
 }));
+
 
 // SupportTickets → User (one)
 export const supportTicketRelations = relations(supportTickets, ({ one }) => ({
