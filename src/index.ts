@@ -25,8 +25,8 @@ app.use("/auth", authRoutes);
 const PORT = process.env.PORT || 8081;
 
 const server = app.listen(PORT, () => {
-  console.log(`🚀 Server is running on http://localhost:${PORT}`);
+  console.log(` Server is running on http://localhost:${PORT}`);
 });
 
-// 👇 Export both for testability
+//  Export both for testability
 export { app, server };

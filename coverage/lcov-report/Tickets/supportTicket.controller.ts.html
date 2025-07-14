@@ -179,31 +179,7 @@
 <a name='L114'></a><a href='#L114'>114</a>
 <a name='L115'></a><a href='#L115'>115</a>
 <a name='L116'></a><a href='#L116'>116</a>
-<a name='L117'></a><a href='#L117'>117</a>
-<a name='L118'></a><a href='#L118'>118</a>
-<a name='L119'></a><a href='#L119'>119</a>
-<a name='L120'></a><a href='#L120'>120</a>
-<a name='L121'></a><a href='#L121'>121</a>
-<a name='L122'></a><a href='#L122'>122</a>
-<a name='L123'></a><a href='#L123'>123</a>
-<a name='L124'></a><a href='#L124'>124</a>
-<a name='L125'></a><a href='#L125'>125</a>
-<a name='L126'></a><a href='#L126'>126</a>
-<a name='L127'></a><a href='#L127'>127</a>
-<a name='L128'></a><a href='#L128'>128</a>
-<a name='L129'></a><a href='#L129'>129</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L117'></a><a href='#L117'>117</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -320,76 +296,64 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// import { Request, Response } from "express";
-// import * as TicketService from "./supportTicket.service";
+// import * as ticketService from "./supportTicket.service";
+// import { JwtPayload } from "jsonwebtoken";
 &nbsp;
-// export const getAllTickets = async (req: Request, res: Response) =&gt; {
+// interface AuthenticatedRequest extends Request {
+//   user?: JwtPayload &amp; { id?: number; role?: string };
+// }
+&nbsp;
+// // Create support ticket
+// export const createTicket = async (req: AuthenticatedRequest, res: Response): Promise&lt;void&gt; =&gt; {
 //   try {
-//     const tickets = await TicketService.getAllTickets();
-//     res.status(200).json(tickets);
-//   } catch (error) {
-//     console.error("Error fetching tickets:", error);
-//     res.status(500).json({ message: "Internal server error" });
-//   }
-// };
-&nbsp;
-// export const getTicketById = async (req: Request, res: Response) =&gt; {
-//   try {
-//     const id = parseInt(req.params.id);
-//     const ticket = await TicketService.getTicketById(id);
-&nbsp;
-//     if (!ticket) {
-//       res.status(404).json({ message: "Ticket not found" });
-//       return;
-//     }
-&nbsp;
-//     res.status(200).json(ticket);
-//   } catch (error) {
-//     console.error("Error fetching ticket:", error);
-//     res.status(500).json({ message: "Internal server error" });
-//   }
-// };
-&nbsp;
-// export const createTicket = async (req: Request, res: Response) =&gt; {
-//   try {
-//     const newTicket = await TicketService.createTicket(req.body);
+//     const userId = req.user?.id;
+//     const data = { ...req.body, user_id: userId };
+//     const newTicket = await ticketService.createTicket(data);
 //     res.status(201).json(newTicket);
 //   } catch (error) {
-//     console.error("Error creating ticket:", error);
+//     console.error("Ticket creation failed:", error);
 //     res.status(500).json({ message: "Internal server error" });
 //   }
 // };
 &nbsp;
-// export const updateTicket = async (req: Request, res: Response) =&gt; {
+// // Get tickets - Admin sees all, User sees only their own
+// export const getTickets = async (req: AuthenticatedRequest, res: Response): Promise&lt;void&gt; =&gt; {
 //   try {
-//     const id = parseInt(req.params.id);
-//     const updated = await TicketService.updateTicket(id, req.body);
-&nbsp;
-//     if (!updated) {
-//       res.status(404).json({ message: "Ticket not found" });
-//       return;
+//     if (req.user?.role === "admin") {
+//       const tickets = await ticketService.getAllTickets();
+//       res.json(tickets);
+//     } else {
+//       const userId = req.user?.id;
+//       const tickets = await ticketService.getTicketsByUser(userId!);
+//       res.json(tickets);
 //     }
-&nbsp;
-//     res.status(200).json(updated);
 //   } catch (error) {
-//     console.error("Error updating ticket:", error);
+//     console.error("Get tickets failed:", error);
 //     res.status(500).json({ message: "Internal server error" });
 //   }
 // };
 &nbsp;
-// export const deleteTicket = async (req: Request, res: Response) =&gt; {
+// // Delete ticket - Admin can delete any, user only their own
+// export const deleteTicket = async (req: AuthenticatedRequest, res: Response): Promise&lt;void&gt; =&gt; {
 //   try {
-//     const id = parseInt(req.params.id);
-//     await TicketService.deleteTicket(id);
-//     res.status(204).send();
+//     const ticketId = parseInt(req.params.id);
+//     const userId = req.user?.id;
+//     const isAdmin = req.user?.role === "admin";
+&nbsp;
+//     const deleted = await ticketService.deleteTicket(ticketId, userId!, isAdmin);
+&nbsp;
+//     if (!deleted) {
+//       res.status(403).json({ message: "Not authorized to delete this ticket" });
+//     } else {
+//       res.json({ message: "Ticket deleted successfully" });
+//     }
 //   } catch (error) {
-//     console.error("Error deleting ticket:", error);
+//     console.error("Delete ticket failed:", error);
 //     res.status(500).json({ message: "Internal server error" });
 //   }
 // };
 &nbsp;
 &nbsp;
-&nbsp;
-//AUTH
 import { Request, Response } from "express";
 import * as ticketService from "./supportTicket.service";
 import { JwtPayload } from "jsonwebtoken";
@@ -454,7 +418,7 @@ export const deleteTicket = async (req: AuthenticatedRequest, res: Response): Pr
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-04T21:09:33.232Z
+                at 2025-07-14T08:37:56.685Z
             </div>
         <script src="../prettify.js"></script>
         <script>

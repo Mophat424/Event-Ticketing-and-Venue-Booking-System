@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/20</span>
+                <span class='fraction'>18/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.66% </span>
+                <span class="strong">88.88% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/18</span>
+                <span class='fraction'>16/18</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -103,7 +103,7 @@
 <a name='L38'></a><a href='#L38'>38</a>
 <a name='L39'></a><a href='#L39'>39</a>
 <a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -111,30 +111,30 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -150,30 +150,30 @@ interface AuthenticatedRequest extends Request {
 }
 &nbsp;
 // Create Payment (user)
-export const createPayment = <span class="fstat-no" title="function not covered" >async </span>(req: AuthenticatedRequest, res: Response) =&gt; {
-<span class="cstat-no" title="statement not covered" >  try {</span>
-    const userId = <span class="cstat-no" title="statement not covered" >req.user?.id;</span>
-    const payment = <span class="cstat-no" title="statement not covered" >await paymentService.createPayment(req.body, userId!);</span>
-<span class="cstat-no" title="statement not covered" >    res.status(201).json(payment);</span>
+export const createPayment = async (req: AuthenticatedRequest, res: Response) =&gt; {
+  try {
+    const userId = req.user?.id;
+    const payment = await paymentService.createPayment(req.body, userId!);
+    res.status(201).json(payment);
   } catch (error) {
-<span class="cstat-no" title="statement not covered" >    console.error("Payment creation error:", error);</span>
-<span class="cstat-no" title="statement not covered" >    res.status(500).json({ message: "Internal server error" });</span>
+    console.error("Payment creation error:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 &nbsp;
 // Get Payments (admin sees all, user sees own)
-export const getPayments = <span class="fstat-no" title="function not covered" >async </span>(
+export const getPayments = async (
   req: AuthenticatedRequest,
   res: Response
 ): Promise&lt;void&gt; =&gt; {
-<span class="cstat-no" title="statement not covered" >  try {</span>
-<span class="cstat-no" title="statement not covered" >    if (req.user?.role === "admin") {</span>
-      const payments = <span class="cstat-no" title="statement not covered" >await paymentService.getAllPayments();</span>
-<span class="cstat-no" title="statement not covered" >      res.json(payments);</span>
+  try {
+    if (req.user?.role === "admin") {
+      const payments = await paymentService.getAllPayments();
+      res.json(payments);
     } else {
-      const userId = <span class="cstat-no" title="statement not covered" >req.user?.id;</span>
-      const payments = <span class="cstat-no" title="statement not covered" >await paymentService.getPaymentsByUser(userId!);</span>
-<span class="cstat-no" title="statement not covered" >      res.json(payments);</span>
+      const userId = req.user?.id;
+      const payments = await paymentService.getPaymentsByUser(userId!);
+      res.json(payments);
     }
   } catch (error) {
 <span class="cstat-no" title="statement not covered" >    console.error("Failed to get payments:", error);</span>
@@ -187,7 +187,7 @@ export const getPayments = <span class="fstat-no" title="function not covered" >
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-08T05:47:54.113Z
+                at 2025-07-14T08:26:03.683Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

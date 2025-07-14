@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/24</span>
+                <span class='fraction'>24/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.05% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/17</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -179,42 +179,42 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// import db from "../Drizzle/db";
@@ -262,36 +262,36 @@ import { eq } from "drizzle-orm";
 &nbsp;
 // Create ticket
 export const createTicket = (data: typeof supportTickets.$inferInsert) =&gt;
-  db.insert(supportTickets).values(data).returning().then(<span class="fstat-no" title="function not covered" >([</span>t]) =&gt; <span class="cstat-no" title="statement not covered" >t)</span>;
+  db.insert(supportTickets).values(data).returning().then(([t]) =&gt; t);
 &nbsp;
 // Get all tickets (Admin)
-export const getAllTickets = <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >db.select().from(supportTickets);</span>
+export const getAllTickets = () =&gt; db.select().from(supportTickets);
 &nbsp;
 // Get tickets for specific user
-export const getTicketsByUser = <span class="fstat-no" title="function not covered" >(u</span>serId: number) =&gt;
-<span class="cstat-no" title="statement not covered" >  db.select().from(supportTickets).where(eq(supportTickets.user_id, userId));</span>
+export const getTicketsByUser = (userId: number) =&gt;
+  db.select().from(supportTickets).where(eq(supportTickets.user_id, userId));
 &nbsp;
 // Delete ticket (Admin or Owner)
-export const deleteTicket = <span class="fstat-no" title="function not covered" >async </span>(
+export const deleteTicket = async (
   ticketId: number,
   userId: number,
   isAdmin: boolean
 ): Promise&lt;boolean&gt; =&gt; {
-<span class="cstat-no" title="statement not covered" >  if (isAdmin) {</span>
-<span class="cstat-no" title="statement not covered" >    await db.delete(supportTickets).where(eq(supportTickets.ticket_id, ticketId));</span>
-<span class="cstat-no" title="statement not covered" >    return true;</span>
+  if (isAdmin) {
+    await db.delete(supportTickets).where(eq(supportTickets.ticket_id, ticketId));
+    return true;
   }
 &nbsp;
-  const ticket = <span class="cstat-no" title="statement not covered" >await db</span>
+  const ticket = await db
     .select()
     .from(supportTickets)
     .where(eq(supportTickets.ticket_id, ticketId))
-    .then(<span class="fstat-no" title="function not covered" >([</span>t]) =&gt; <span class="cstat-no" title="statement not covered" >t)</span>;
+    .then(([t]) =&gt; t);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (!ticket || ticket.user_id !== userId) <span class="cstat-no" title="statement not covered" >return false;</span></span>
+  if (!ticket || ticket.user_id !== userId) return false;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  await db.delete(supportTickets).where(eq(supportTickets.ticket_id, ticketId));</span>
-<span class="cstat-no" title="statement not covered" >  return true;</span>
+  await db.delete(supportTickets).where(eq(supportTickets.ticket_id, ticketId));
+  return true;
 };
 &nbsp;
 &nbsp;</pre></td></tr></table></pre>
@@ -301,7 +301,7 @@ export const deleteTicket = <span class="fstat-no" title="function not covered" 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-08T05:47:54.113Z
+                at 2025-07-14T08:26:03.683Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
