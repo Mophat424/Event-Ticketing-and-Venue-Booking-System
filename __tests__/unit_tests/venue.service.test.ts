@@ -53,7 +53,6 @@ describe("Venue Service", () => {
     });
 
     it("should return false if update failed", async () => {
-      // Simulate failed update (rowCount = 0)
       const db = require("../../src/Drizzle/db").default;
       const updateMock = db.update().set();
       updateMock.where.mockResolvedValueOnce({ rowCount: 0 });
@@ -69,7 +68,7 @@ describe("Venue Service", () => {
       expect(result).toBe(true);
     });
 
-    it("should return false if delete failed", async () => {
+    it("should return false if delete failed", async () => { 
       const db = require("../../src/Drizzle/db").default;
       const deleteMock = db.delete();
       deleteMock.where.mockResolvedValueOnce({ rowCount: 0 });

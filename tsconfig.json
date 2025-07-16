@@ -8,11 +8,12 @@
     "moduleResolution": "nodenext",
     "outDir": "./dist",
     "esModuleInterop": true,
+    "isolatedModules": true,
     "forceConsistentCasingInFileNames": true, 
     /* Type Checking */
     "strict": true,
     "skipLibCheck": true,
-    "types": ["jest"]
+    "types": ["jest", "k6"]
   },
   "include": [
     "src/**/*"   

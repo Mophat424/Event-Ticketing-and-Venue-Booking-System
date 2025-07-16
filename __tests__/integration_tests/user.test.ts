@@ -1,5 +1,5 @@
 import request from "supertest";
-import { app, server } from "../../src/index";
+import { app } from "../../src/index";
 import db from "../../src/Drizzle/db";
 import { users } from "../../src/Drizzle/schema";
 import jwt from "jsonwebtoken";
@@ -18,45 +18,27 @@ describe("User API", () => {
   beforeAll(async () => {
     await db.delete(users);
 
-    const [admin] = await db
-      .insert(users)
-      .values({
-        first_name: "Admin",
-        last_name: "User",
-        email: "admin@example.com",
-        password: "hashedpass",
-        role: "admin",
-      })
-      .returning();
+    const [admin] = await db.insert(users).values({
+      first_name: "Admin",
+      last_name: "User",
+      email: "admin@example.com",
+      password: "hashedpass",
+      role: "admin",
+    }).returning();
 
-    const [user] = await db
-      .insert(users)
-      .values({
-        first_name: "Regular",
-        last_name: "User",
-        email: "user@example.com",
-        password: "hashedpass",
-        role: "user",
-      })
-      .returning();
+    const [user] = await db.insert(users).values({
+      first_name: "Regular",
+      last_name: "User",
+      email: "user@example.com",
+      password: "hashedpass",
+      role: "user",
+    }).returning();
 
     adminId = admin.user_id;
     userId = user.user_id;
 
     adminToken = jwt.sign({ id: adminId, role: "admin" }, JWT_SECRET);
     userToken = jwt.sign({ id: userId, role: "user" }, JWT_SECRET);
-  });
-
-  afterAll(async () => {
-    try {
-      await db.delete(users);
-    } catch (err) {
-      console.error(" Error cleaning up users:", err);
-    } finally {
-      server.close(() => {
-        console.log(" Server closed after User tests.");
-      });
-    }
   });
 
   describe("GET /users", () => {
@@ -106,16 +88,13 @@ describe("User API", () => {
     let userToDeleteId: number;
 
     beforeAll(async () => {
-      const [newUser] = await db
-        .insert(users)
-        .values({
-          first_name: "Delete",
-          last_name: "Me",
-          email: "deleteme@example.com",
-          password: "hashedpass",
-          role: "user",
-        })
-        .returning();
+      const [newUser] = await db.insert(users).values({
+        first_name: "Delete",
+        last_name: "Me",
+        email: "deleteme@example.com",
+        password: "hashedpass",
+        role: "user",
+      }).returning();
 
       userToDeleteId = newUser.user_id;
     });
@@ -131,7 +110,7 @@ describe("User API", () => {
 
     it("should block non-admin from deleting a user", async () => {
       const res = await request(app)
-        .delete(`/users/${adminId}`) // trying to delete admin
+        .delete(`/users/${adminId}`)
         .set("Authorization", `Bearer ${userToken}`);
 
       expect(res.status).toBe(403);

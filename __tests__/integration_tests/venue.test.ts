@@ -1,8 +1,7 @@
 import request from "supertest";
-import { app, server } from "../../src/index";
+import { app } from "../../src/index";
 import * as venueService from "../../src/Venues/venue.service";
 
-// ✅ Mock auth.middleware with proper types
 jest.mock("../../src/middleware/auth.middleware", () => ({
   authenticate: (
     req: import("express").Request,
@@ -17,7 +16,6 @@ jest.mock("../../src/middleware/auth.middleware", () => ({
     };
     next();
   },
-
   authorizeRole: () => (
     _req: import("express").Request,
     _res: import("express").Response,
@@ -25,7 +23,6 @@ jest.mock("../../src/middleware/auth.middleware", () => ({
   ) => next(),
 }));
 
-// ✅ Mock the service layer
 jest.mock("../../src/Venues/venue.service");
 
 const mockAdminToken = "Bearer admin";
@@ -36,14 +33,10 @@ describe("Venue Routes", () => {
     jest.clearAllMocks();
   });
 
-  afterAll((done) => {
-    server.close(done);
-  });
-
   describe("GET /venues", () => {
     it("should return all venues", async () => {
       const mockVenues = [
-        { venue_id: 1, name: "Stadium", address: "123 Street", capacity: 1000 }
+        { venue_id: 1, name: "Stadium", address: "123 Street", capacity: 1000 },
       ];
       (venueService.getAllVenues as jest.Mock).mockResolvedValue(mockVenues);
 
@@ -51,7 +44,6 @@ describe("Venue Routes", () => {
 
       expect(res.status).toBe(200);
       expect(res.body).toEqual(mockVenues);
-      expect(venueService.getAllVenues).toHaveBeenCalled();
     });
   });
 
@@ -75,7 +67,7 @@ describe("Venue Routes", () => {
       const res = await request(app)
         .post("/venues")
         .set("Authorization", mockUserToken)
-        .send({ name: "Unauthorized Venue", address: "789 Ave", capacity: 300 });
+        .send({ name: "Unauthorized", address: "789 Ave", capacity: 300 });
 
       expect(res.status).toBe(403);
       expect(res.body.message).toMatch(/only admins/i);

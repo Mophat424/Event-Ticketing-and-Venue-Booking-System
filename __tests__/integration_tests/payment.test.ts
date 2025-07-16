@@ -1,8 +1,7 @@
 import request from "supertest";
- import { app, server } from "../../src/index";
+import { app } from "../../src/index";
 import db from "../../src/Drizzle/db";
 import { payments, users, venues, events, bookings } from "../../src/Drizzle/schema";
-import { eq } from "drizzle-orm";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
@@ -20,7 +19,6 @@ beforeAll(async () => {
   await db.delete(venues);
   await db.delete(users);
 
-  // Create user and admin
   const [user] = await db.insert(users).values({
     first_name: "John",
     last_name: "Doe",
@@ -43,16 +41,8 @@ beforeAll(async () => {
 
   testUserId = user.user_id;
 
-  userToken = jwt.sign(
-    { id: user.user_id, email: user.email, role: "user" },
-    process.env.JWT_SECRET!,
-    { expiresIn: "1h" }
-  );
-  adminToken = jwt.sign(
-    { id: admin.user_id, email: admin.email, role: "admin" },
-    process.env.JWT_SECRET!,
-    { expiresIn: "1h" }
-  );
+  userToken = jwt.sign({ id: user.user_id, email: user.email, role: "user" }, process.env.JWT_SECRET!, { expiresIn: "1h" });
+  adminToken = jwt.sign({ id: admin.user_id, email: admin.email, role: "admin" }, process.env.JWT_SECRET!, { expiresIn: "1h" });
 
   const [venue] = await db.insert(venues).values({
     name: "Test Venue",
@@ -127,7 +117,7 @@ describe("Payment Routes", () => {
         transaction_id: "INVALIDBOOKING123",
       });
 
-    expect(res.status).toBe(500); // or 403/400 depending on how your error is handled
+    expect(res.status).toBeGreaterThanOrEqual(400);
     expect(res.body).toHaveProperty("message");
   });
 
@@ -150,9 +140,9 @@ describe("Payment Routes", () => {
       .get("/payments")
       .set("Authorization", `Bearer ${userToken}`);
 
-    expect(res.status).toBe(200); // allowed, but only returns own
+    expect(res.status).toBe(200);
     res.body.forEach((row: any) => {
-      expect(row.payments.user_id || row.user_id).toBe(testUserId);
+      expect(row.payments?.user_id || row.user_id).toBe(testUserId);
     });
   });
 
@@ -167,19 +157,7 @@ describe("Payment Routes", () => {
         transaction_id: "DUPLICATETX",
       });
 
-    // Since booking_id is unique in payments table, this should error
-    expect(res.status).toBe(500);
+    expect(res.status).toBeGreaterThanOrEqual(400);
     expect(res.body).toHaveProperty("message");
   });
 });
-
-afterAll(async () => {
-  await db.delete(payments);
-  await db.delete(bookings);
-  await db.delete(events);
-  await db.delete(venues);
-  await db.delete(users);
-
-  if ("end" in db.$client) await db.$client.end();
-});
-

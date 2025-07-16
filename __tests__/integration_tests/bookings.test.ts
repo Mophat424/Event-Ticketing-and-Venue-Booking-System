@@ -1,10 +1,9 @@
 import request from "supertest";
-import { app, server } from "../../src/index";
+import { app } from "../../src/index";
 import db from "../../src/Drizzle/db";
 import { users, venues, events, bookings } from "../../src/Drizzle/schema";
 import jwt from "jsonwebtoken";
 
-// JWT utility
 function generateToken(userId: number, role: string) {
   return jwt.sign({ id: userId, role }, process.env.JWT_SECRET || "testsecret", {
     expiresIn: "1h",
@@ -66,12 +65,6 @@ describe("Bookings API Integration", () => {
     token = generateToken(user.user_id, "user");
     adminToken = generateToken(admin.user_id, "admin");
   });
-
-afterAll(async () => {
-  server.close();             
-  await db.$client.end();     
-});
-
 
   it("POST /bookings → should create a booking", async () => {
     const res = await request(app)
