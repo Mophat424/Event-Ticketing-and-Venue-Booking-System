@@ -1,4 +1,3 @@
-//Simulate 50 virtual users trying to log in concurrently.
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 

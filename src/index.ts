@@ -59,7 +59,7 @@ export { app, server };
 
 // const PORT = process.env.PORT || 8081;
 
-// // ✅ Only listen if NOT running tests
+// //  Only listen if NOT running tests
 // let server: ReturnType<typeof app.listen> | undefined;
 
 // if (process.env.NODE_ENV !== "test") {
